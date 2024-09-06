@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Async Topics</title>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>JS Async Blog</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Concepts</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+
+
+    <main>
+
+        <h2 class="blog-title">JavaScript Async Concepts</h2>
+        <div class="blog-container">
+            <div class="blog-item">
+                <img src="img/photo1.png" alt="Async Image">
+                <h3>What is JavaScript Async?</h3>
+                <p>JavaScript is single-threaded, but async programming allows operations to run in the background...
+                </p>
+                <a href="#async">Read more</a>
+            </div>
+            <div class="blog-item">
+                <img src="img/photo2.jpg" alt="Callback Image">
+                <h3>Understanding Callbacks</h3>
+                <p>Callbacks are functions passed as arguments to other functions. They execute once the main function
+                    finishes...</p>
+                <a href="#callback">Read more</a>
+            </div>
+            <div class="blog-item">
+                <img src="img/photo3.png" alt="Promise Image">
+                <h3>Working with Promises</h3>
+                <p>Promises are used for handling asynchronous operations and represent a value that might be available
+                    now or in the future...</p>
+                <a href="#promise">Read more</a>
+            </div>
+            <div class="blog-item">
+                <img src="img/photo4.png" alt="await async Image">
+                <h3>Async/Await</h3>
+                <p>async is a keyword in JavaScript that is used to define asynchronous functions. These functions allow
+                    you to work with Promises in a simpler and more...</p>
+                <a href="#async-await">Read more</a>
+            </div>
+            <div class="blog-item">
+                <img src="img/photo5.png" alt="Event Loop Image">
+                <h3>Event Loop</h3>
+                <p> It allows JavaScript to handle asynchronous operations (like setTimeout, Promises, or I/O tasks)
+                    while remaining...</p>
+                <a href="#eventLoop">Read more</a>
+            </div>
+        </div>
+
+        <section id="async">
+            <h2>1. JavaScript Async</h2>
+            <p>The async function declaration creates a binding of a new async function to a given name. The await
+                keyword is permitted within the function body, enabling asynchronous, promise-based behavior to be
+                written in a cleaner style and avoiding the need to explicitly configure promise chains.</p>
+            <pre><code>// Example of asynchronous behavior
+                function resolveAfter2Seconds() {
+                    return new Promise((resolve) => {
+                      setTimeout(() => {
+                        resolve('resolved');
+                      }, 2000);
+                    });
+                  }
+                  
+                  async function asyncCall() {
+                    console.log('calling');
+                    const result = await resolveAfter2Seconds();
+                    console.log(result);
+                    // Expected output: "resolved"
+                  }
+                  
+                  asyncCall();
+            </code></pre>
+        </section>
+
+        <section id="callback">
+            <h2>2. Callback</h2>
+            <p>A callback function is a function passed into another function as an argument, which is then invoked
+                inside the outer function to complete some kind of routine or action.
+
+                The consumer of a callback-based API writes a function that is passed into the API. The provider of the
+                API (called the caller) takes the function and calls back (or executes) the function at some point
+                inside the caller's body. The caller is responsible for passing the right parameters into the callback
+                function. The caller may also expect a particular return value from the callback function, which is used
+                to instruct further behavior of the caller.
+
+                There are two ways in which the callback may be called: synchronous and asynchronous. Synchronous
+                callbacks are called immediately after the invocation of the outer function, with no intervening
+                asynchronous tasks, while asynchronous callbacks are called at some point later, after an asynchronous
+                operation has completed.</p>
+            <pre><code>// Example of a callback
+function fetchData(callback) {
+    setTimeout(() => {
+        console.log("Data fetched");
+        callback();
+    }, 1000);
+}
+
+function logData() {
+    console.log("Data logged");
+}
+
+fetchData(logData);
+            </code></pre>
+        </section>
+
+        <section id="promise">
+            <h2>3. Promise</h2>
+            <p>A Promise is a proxy for a value not necessarily known when the promise is created. It allows you to
+                associate handlers with an asynchronous action's eventual success value or failure reason. This lets
+                asynchronous methods return values like synchronous methods: instead of immediately returning the final
+                value, the asynchronous method returns a promise to supply the value at some point in the future.</p>
+            <pre><code>// Example of a promise
+let myPromise = new Promise((resolve, reject) => {
+    setTimeout(() => resolve("Success!"), 2000);
+});
+
+myPromise.then(result => console.log(result));
+            </code></pre>
+        </section>
+
+        <section id="async-await">
+            <h2>4. Async/Await</h2>
+            <p>async and await are modern JavaScript keywords that make it easier to work with Promises and handle
+                asynchronous operations in a cleaner, more readable way. They were introduced in ES2017 and have become
+                widely used for dealing with asynchronous code.</p>
+            <h3>async Keyword</h3>
+            <p>The async keyword is used to define an asynchronous function. A function declared with async always
+                returns a Promise. If the function returns a value, JavaScript automatically wraps it in a resolved
+                Promise. If an error is thrown, it will be returned as a rejected Promise.</p>
+            <pre><code>// Example of async//
+                async function hello() {
+                    return "Hello World!";
+                }
+                  hello().then(console.log);  // Output: "Hello World!"
+            </code></pre>
+
+            <h3>await Keyword</h3>
+            <p>The await keyword is used inside an async function and pauses the execution of the function until the
+                Promise is resolved or rejected. It allows you to write asynchronous code that looks synchronous, making
+                it easier to read and understand.</p>
+            <pre><code>// Example of await//
+                async function fetchData() {
+                    let response = await fetch('https://api.example.com/data');
+                    let data = await response.json();
+                    console.log(data);
+                }
+                fetchData();
+            </code></pre>
+        </section>
+
+        <section id="eventLoop">
+            <h2>5. Event Loop</h2>
+            The Event Loop is one of the most crucial concepts in JavaScript. It allows JavaScript to handle
+            asynchronous operations (like setTimeout, Promises, or I/O tasks) while remaining single-threaded, meaning
+            it can perform non blocking tasks without freezing or slowing down the program.
+
+            Here's a breakdown of how the Event Loop works:
+
+            <h3>JavaScript's Single-Threaded Nature</h3>
+            JavaScript is single-threaded, meaning it can only execute one piece of code at a time. However, JavaScript
+            can manage multiple tasks (like network requests, timers, etc.) through the Event Loop by pushing tasks to
+            different queues and executing them when the main thread is free.
+            <pre><code>// Example of Event Loop
+console.log('Start');
+
+setTimeout(() => console.log('This is executed last'), 0);
+
+console.log('End');
+            </code></pre>
+        </section>
+    </main>
+
+    <footer>
+        <p>JavaScript Async Concepts Blog | Created by Ana Ardila</p>
+    </footer>
+</body>
+
+</html>
